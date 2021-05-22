@@ -4,7 +4,7 @@ using System.Text;
 
 namespace web_autotest
 {
-    class ContactData
+    public class ContactData
     {
         private string firstname;
         private string lastname;
