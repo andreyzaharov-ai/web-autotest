@@ -1,15 +1,13 @@
 ﻿using System;
-
-using System.Text;
-using NUnit.Framework;
 using OpenQA.Selenium;
-
 using OpenQA.Selenium.Chrome;
 
 namespace web_autotest
 {
     public class AppManager
     {
+        // Объявляем переменные и помощники
+
         protected IWebDriver driver;
         protected string baseURL;
         protected LoginHelper loginHelper;
@@ -17,6 +15,7 @@ namespace web_autotest
         protected GroupHelper groupHelper;
         protected ContactHelper contactHelper;
 
+        // Инициируем переменные и помощники
         public AppManager()
         {
             driver = new ChromeDriver();
