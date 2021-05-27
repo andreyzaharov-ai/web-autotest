@@ -20,6 +20,8 @@ namespace web_autotest
         {
             
             app = new AppManager();
+            app.Navigator.OpenHomePage();
+            app.Auth.Login(new AccountData("admin", "secret"));
         }
 
         [TearDown]
