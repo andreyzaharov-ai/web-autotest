@@ -8,7 +8,7 @@ namespace web_autotest
         private string baseURL;
 
         // Конструируем помошника навигации
-        public NavigationHelper(IWebDriver driver, string baseURL) : base(driver)
+        public NavigationHelper(AppManager manager, string baseURL) : base(manager)
         {
             
             this.baseURL = baseURL;
@@ -32,11 +32,7 @@ namespace web_autotest
             driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
         }
 
-        // метод возврата на страницу групп
-        public void ReturnToGroupsPage()
-        {
-            driver.FindElement(By.LinkText("group page")).Click();
-        }
+        
 
         // метод перехода на страницу создания контакта
         public void GoToAddNewContactPage()

@@ -5,7 +5,7 @@ namespace web_autotest
     public class ContactHelper : HelperBase
     {
         // конструктор получает драйвер от базового
-        public ContactHelper(IWebDriver driver) : base(driver)
+        public ContactHelper(AppManager manager) : base(manager)
         {
            
         }

@@ -12,8 +12,6 @@ namespace web_autotest
         [Test]
         public void ContactRemovalTest()
         {
-            app.Navigator.OpenHomePage();
-            app.Auth.Login(new AccountData("admin", "secret"));
             app.Navigator.GoToContactEditPage();
             app.Contacts.SubmitContactRemoove();
 

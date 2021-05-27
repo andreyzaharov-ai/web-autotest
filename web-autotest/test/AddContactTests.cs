@@ -11,9 +11,7 @@ namespace web_autotest
         
         [Test]
         public void TheAddContactTest()
-        {
-            app.Navigator.OpenHomePage();
-            app.Auth.Login(new AccountData("admin", "secret"));
+        {           
             app.Navigator.GoToAddNewContactPage();
             app.Contacts.FillNewContactForm(new ContactData("Andrew", "The second"));
             app.Contacts.SubmitNewContactCreation();

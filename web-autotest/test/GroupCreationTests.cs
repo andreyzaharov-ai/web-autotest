@@ -9,14 +9,10 @@ namespace web_autotest
         [Test]
         public void TheGroupCreationTest()
         {
-            app.Navigator.OpenHomePage();
-            app.Auth.Login(new AccountData("admin", "secret"));
-            app.Navigator.GoToGroupsPage();
-            app.Groups.InitGroupCreation();
-            app.Groups.FillGroupForm(new GroupData("aaa", "fff", "ccc"));
-            app.Groups.SubmitGroupCreation();
-            app.Navigator.ReturnToGroupsPage();
-            
+            GroupData group = new GroupData("aa", "dd", "ff");
+            app.Groups.Create(group);
+
+
 
         }  
     }

@@ -10,9 +10,8 @@ namespace web_autotest
         // Тест редактированя контакта
         public void ContactEditTest()
         {
-            app.Navigator.OpenHomePage();
-            app.Auth.Login(new AccountData("admin", "secret"));
             app.Navigator.GoToContactEditPage();
+            app.Contacts.FillNewContactForm(new ContactData("Zarin", "Zarinovich"));
             app.Contacts.SubmitContactUpdate();
         }
     }
