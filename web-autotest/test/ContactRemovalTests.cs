@@ -8,12 +8,15 @@ namespace web_autotest
     [TestFixture]
     public class ContactRemovalTests : TestBase
     {
+        /// <summary>
+        /// Тест удаления контакта
+        /// </summary>
 
         [Test]
         public void ContactRemovalTest()
         {
-            app.Navigator.GoToContactEditPage();
-            app.Contacts.SubmitContactRemoove();
+            
+            app.Contacts.Remove();
 
         }
 

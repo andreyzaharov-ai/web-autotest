@@ -1,6 +1,9 @@
 ﻿using OpenQA.Selenium;
 namespace web_autotest
 {
+    /// <summary>
+    /// Базовый помошник
+    /// </summary>
     public class HelperBase
     {
         protected AppManager manager;

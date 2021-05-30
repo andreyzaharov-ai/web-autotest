@@ -5,14 +5,18 @@ namespace web_autotest
     [TestFixture]
     public class ContactEditTests : TestBase
     {
+        /// <summary>
+        /// Тест редактирования контакта
+        /// </summary>
         [Test]
 
-        // Тест редактированя контакта
+        
+
         public void ContactEditTest()
         {
-            app.Navigator.GoToContactEditPage();
-            app.Contacts.FillNewContactForm(new ContactData("Zarin", "Zarinovich"));
-            app.Contacts.SubmitContactUpdate();
+            ContactData newData = new ContactData("Zarin", "Zarinovich");
+
+            app.Contacts.Modify(newData);
         }
     }
 }

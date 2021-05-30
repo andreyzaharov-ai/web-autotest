@@ -5,7 +5,9 @@ namespace web_autotest
     [TestFixture]
     public class GroupCreationTests : TestBase
     {
-       
+        /// <summary>
+        /// Тест создания группы
+        /// </summary> 
         [Test]
         public void TheGroupCreationTest()
         {

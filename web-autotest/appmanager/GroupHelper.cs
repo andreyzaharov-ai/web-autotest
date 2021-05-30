@@ -1,14 +1,20 @@
 ﻿using OpenQA.Selenium;
-using System;
 
 namespace web_autotest
 {
     public class GroupHelper : HelperBase
     {
+        
         public GroupHelper(AppManager manager) : base(manager)
         {
             
         }
+
+        /// <summary>
+        /// Метод создания группы
+        /// </summary>
+        /// <param name="group"></param>
+        /// <returns></returns>
 
         public GroupHelper Create(GroupData group)
         {
@@ -20,15 +26,37 @@ namespace web_autotest
             return this;
         }
 
-        public GroupHelper Remove(int v)
+        /// <summary>
+        /// Метод Редактирования группы
+        /// </summary>
+        /// <param name="newData"></param>
+        /// <param name="v"></param>
+        /// <returns></returns>
+
+        public GroupHelper Modify(GroupData newData, int v)
         {
             manager.Navigator.GoToGroupsPage();
-            SelectGroup(1);
-            RemoveGroup();
+            SelectGroup(v);
+            InitGroupModification();
+            FillGroupForm(newData);
+            SubmitGroupModification();
             ReturnToGroupsPage();
             return this;
         }
 
+        /// <summary>
+        /// Метод Удаления группы
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns></returns>
+        public GroupHelper Remove(int v)
+        {
+            manager.Navigator.GoToGroupsPage();
+            SelectGroup(v);
+            RemoveGroup();
+            ReturnToGroupsPage();
+            return this;
+        }
         public GroupHelper SubmitGroupCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
@@ -77,7 +105,7 @@ namespace web_autotest
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
             return this;
         }
-        // метод возврата на страницу групп
+
         public GroupHelper ReturnToGroupsPage()
         {
             driver.FindElement(By.LinkText("group page")).Click();
