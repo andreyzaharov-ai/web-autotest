@@ -1,4 +1,7 @@
 ﻿using OpenQA.Selenium;
+using System;
+using NUnit.Framework;
+
 namespace web_autotest
 {
     /// <summary>
@@ -12,6 +15,19 @@ namespace web_autotest
         {
             this.manager = manager;
             driver = manager.Driver;
+        }
+
+        public Boolean isElementPresent(By by)
+        {
+            try
+            {
+                driver.FindElement(by);
+                return true;
+            }
+            catch (NoSuchElementException e)
+            {
+                return false;
+            }
         }
     }
 }

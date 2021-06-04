@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using OpenQA.Selenium;
 
 namespace web_autotest
 {
@@ -16,7 +17,17 @@ namespace web_autotest
         {
             ContactData newData = new ContactData("Zarin", "Zarinovich");
 
-            app.Contacts.Modify(newData);
+            
+            By locator = By.XPath("//td/input");
+            if (!app.Groups.isElementPresent(locator))
+            {
+                app.Contacts.Create(newData);
+            }
+            
+                ContactData newData2 = new ContactData("milana", "Ivanovna");
+
+                app.Contacts.Modify(newData2);
+                
         }
     }
 }

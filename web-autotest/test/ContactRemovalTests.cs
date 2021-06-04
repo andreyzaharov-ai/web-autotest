@@ -1,4 +1,4 @@
-﻿
+﻿using OpenQA.Selenium;
 using NUnit.Framework;
 
 
@@ -15,8 +15,15 @@ namespace web_autotest
         [Test]
         public void ContactRemovalTest()
         {
+            ContactData newData = new ContactData("Zarin", "Zarinovich");
+
+            By locator = By.XPath("//td/input");
+            if (!app.Groups.isElementPresent(locator))
+            {
+                app.Contacts.Create(newData);
+            }          
             
-            app.Contacts.Remove();
+            app.Contacts.Remove();     
 
         }
 
