@@ -65,7 +65,8 @@ namespace web_autotest
         private void RemoveContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
-            Assert.IsTrue(Regex.IsMatch(CloseAlertAndGetItsText(), "^Delete 1 addresses[\\s\\S]$"));
+            driver.SwitchTo().Alert().Accept();
+            
         }
 
         private void SelectContaact()
@@ -73,28 +74,7 @@ namespace web_autotest
             driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[2]/td/input")).Click();
         }
 
-        private string CloseAlertAndGetItsText()
-        {
-            try
-            {
-                IAlert alert = driver.SwitchTo().Alert();
-                string alertText = alert.Text;
-                if (acceptNextAlert)
-                {
-                    alert.Accept();
-                }
-                else
-                {
-                    alert.Dismiss();
-                }
-                return alertText;
-            }
-            finally
-            {
-                acceptNextAlert = true;
-            }
         
-    }
 
         // Метод клика на кнопку подтверждения создания контакта
 

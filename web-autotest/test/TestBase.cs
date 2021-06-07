@@ -23,26 +23,22 @@ namespace web_autotest
         [SetUp]
         public void SetupTest()
         {
-            
-            app = new AppManager();
-            app.Navigator.OpenHomePage();
-            app.Auth.Login(new AccountData("admin", "secret"));
-        }
-        /// <summary>
-        /// Метод завершения тестов
-        /// </summary>
 
-        [TearDown]
-        public void TeardownTest()
-        {
-            app.Stop();
+            app = AppManager.GetInstanse();
+            //app.Navigator.OpenHomePage();
+            //app.Auth.Login(new AccountData("admin", "secret"));
+
         }
         
-      
-       
 
-        
-        
+     
+
+
+
+
+
+
+
 
     }
 }

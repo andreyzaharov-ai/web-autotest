@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
@@ -14,9 +15,10 @@ namespace web_autotest
         protected NavigationHelper navigator;
         protected GroupHelper groupHelper;
         protected ContactHelper contactHelper;
+        private static ThreadLocal<AppManager> app = new ThreadLocal<AppManager>();
 
         // Инициируем переменные и помощники
-        public AppManager()
+        private AppManager()
         {
             driver = new ChromeDriver();
             baseURL = "http://localhost";
@@ -24,6 +26,26 @@ namespace web_autotest
             navigator = new NavigationHelper(this, baseURL);
             groupHelper = new GroupHelper(this);
             contactHelper = new ContactHelper(this);
+        }
+
+        ~AppManager()
+        {
+            try
+            {
+                driver.Quit();
+            }
+            catch (Exception)
+            {
+                // Ignore errors if unable to close the browser
+            }
+        }
+        public static AppManager GetInstanse()
+        {
+            if (!app.IsValueCreated)
+            {
+                app.Value = new AppManager();
+            }
+            return app.Value;
         }
 
         public LoginHelper Auth
@@ -62,17 +84,6 @@ namespace web_autotest
                 return driver;
             }
         }
-        public void Stop()
-        {
-            try
-            {
-                driver.Quit();
-            }
-            catch (Exception)
-            {
-                // Ignore errors if unable to close the browser
-            }
-            
-        }
+    
     }
 }
