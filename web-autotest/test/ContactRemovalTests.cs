@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 
 
@@ -21,9 +22,13 @@ namespace web_autotest
             if (!app.Groups.isElementPresent(locator))
             {
                 app.Contacts.Create(newData);
-            }          
+            }
+
             
-            app.Contacts.Remove();     
+
+            app.Contacts.Remove();
+
+            
 
         }
 

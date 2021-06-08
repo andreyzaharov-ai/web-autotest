@@ -12,15 +12,20 @@ namespace web_autotest
         [Test]
         public void GroupModificationTest()
         {
-            GroupData newData1 = new GroupData("aa", "dd", "ff");
+            
+            GroupData newData1 = new GroupData("Group1");
+            newData1.Header = "1Header";
+            newData1.Footer = "1Footer";
             By locator = By.XPath("//div[@id='content']/form/span/input");
             if (!app.Groups.isElementPresent(locator))
             {
                 app.Groups.Create(newData1);
             }
-           
-                GroupData newData = new GroupData("ff", "dd", "ff");
-                app.Groups.Modify(newData, 1);
+
+            GroupData newData = new GroupData("Group2");
+            newData1.Header = "2Header";
+            newData1.Footer = "2Footer";
+            app.Groups.Modify(newData, 0);
                        
                 
 
