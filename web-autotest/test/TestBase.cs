@@ -14,7 +14,7 @@ namespace web_autotest
     /// </summary>
     public class TestBase
     {
-        protected IWebDriver driver;
+        
         protected AppManager app;
 
         /// <summary>

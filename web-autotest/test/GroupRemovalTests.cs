@@ -18,11 +18,7 @@ namespace web_autotest
             {
                 app.Groups.Create(newData1);
             }
-            
-                app.Groups.Remove(1);
-            
-            
-
+            app.Groups.Remove(1);
         }
 
     }

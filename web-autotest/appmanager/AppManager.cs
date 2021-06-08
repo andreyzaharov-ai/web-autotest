@@ -3,11 +3,12 @@ using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
+
 namespace web_autotest
 {
     public class AppManager
     {
-        // Объявляем переменные и помощники
+        // Объявляем переменные и помошники
 
         protected IWebDriver driver;
         protected string baseURL;
@@ -17,7 +18,7 @@ namespace web_autotest
         protected ContactHelper contactHelper;
         private static ThreadLocal<AppManager> app = new ThreadLocal<AppManager>();
 
-        // Инициируем переменные и помощники
+        // Инициируем переменные и помошники
         private AppManager()
         {
             driver = new ChromeDriver();
@@ -27,7 +28,14 @@ namespace web_autotest
             groupHelper = new GroupHelper(this);
             contactHelper = new ContactHelper(this);
         }
-
+        public static AppManager GetInstanse()
+        {
+            if (!app.IsValueCreated)
+            {
+                app.Value = new AppManager();
+            }
+            return app.Value;
+        }
         ~AppManager()
         {
             try
@@ -39,15 +47,6 @@ namespace web_autotest
                 // Ignore errors if unable to close the browser
             }
         }
-        public static AppManager GetInstanse()
-        {
-            if (!app.IsValueCreated)
-            {
-                app.Value = new AppManager();
-            }
-            return app.Value;
-        }
-
         public LoginHelper Auth
         {
             get
@@ -84,6 +83,8 @@ namespace web_autotest
                 return driver;
             }
         }
-    
+
+       
+
     }
 }
