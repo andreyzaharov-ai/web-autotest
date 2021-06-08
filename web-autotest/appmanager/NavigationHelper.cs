@@ -43,7 +43,7 @@ namespace web_autotest
         // метод возврата на страницу контактов/главную страницу
         public void ReturnToContactsPage()
         {
-            driver.FindElement(By.LinkText("home page")).Click();
+            driver.FindElement(By.LinkText("home")).Click();
         }
     }
 }

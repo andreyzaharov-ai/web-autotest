@@ -56,7 +56,7 @@ namespace web_autotest
             
             SelectContaact();
             RemoveContact();
-            //manager.Navigator.ReturnToContactsPage();
+            manager.Navigator.ReturnToContactsPage();
             return this;
         }
 
