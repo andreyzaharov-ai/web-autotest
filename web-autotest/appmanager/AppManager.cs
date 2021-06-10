@@ -32,7 +32,10 @@ namespace web_autotest
         {
             if (!app.IsValueCreated)
             {
-                app.Value = new AppManager();
+                AppManager newInstance = new AppManager();
+                newInstance.Navigator.OpenHomePage();
+                app.Value = newInstance;
+                
             }
             return app.Value;
         }

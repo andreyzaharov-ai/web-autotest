@@ -21,12 +21,11 @@ namespace web_autotest
         /// Метод инициализации тестов
         /// </summary>
         [SetUp]
-        public void SetupTest()
+        public void SetupAppManager()
         {
 
             app = AppManager.GetInstanse();
-            //app.Navigator.OpenHomePage();
-            //app.Auth.Login(new AccountData("admin", "secret"));
+
 
         }
         
