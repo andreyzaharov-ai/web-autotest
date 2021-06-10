@@ -17,14 +17,14 @@ namespace web_autotest
             driver = manager.Driver;
         }
 
-        public Boolean isElementPresent(By by)
+        public Boolean IsElementPresent(By by)
         {
             try
             {
                 driver.FindElement(by);
                 return true;
             }
-            catch (NoSuchElementException e)
+            catch (NoSuchElementException)
             {
                 return false;
             }
