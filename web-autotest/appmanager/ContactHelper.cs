@@ -1,6 +1,8 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 
 namespace web_autotest
@@ -14,6 +16,35 @@ namespace web_autotest
         public ContactHelper(AppManager manager) : base(manager)
         {
            
+        }
+        private List<ContactData> contactCache = null;
+        
+
+        internal List<ContactData> GetContactList()
+        {
+            if (contactCache == null)
+            {
+                contactCache = new List<ContactData>();
+                manager.Navigator.OpenHomePage();
+                ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+                foreach (IWebElement element in elements)
+                {
+                    ContactData contact = new ContactData
+                    {
+                        FirstName = driver.FindElement(By.CssSelector("td:nth-of-type(3n)")).Text,
+                        LastName = driver.FindElement(By.CssSelector("td:nth-of-type(2n)")).Text
+                    };
+                    contactCache.Add(contact);
+
+                }
+            }
+
+            return new List<ContactData>(contactCache);
+        }
+
+        internal double GetContactCount()
+        {
+            return driver.FindElements(By.Name("entry")).Count; ;
         }
 
         /// <summary>
@@ -81,6 +112,7 @@ namespace web_autotest
         public ContactHelper SubmitNewContactCreation()
         {
             driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -89,6 +121,7 @@ namespace web_autotest
         public ContactHelper SubmitContactRemoove()
         {
             driver.FindElement(By.XPath("(//input[@name='update'])[3]")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -97,18 +130,15 @@ namespace web_autotest
         public ContactHelper SubmitContactUpdate()
         {
             driver.FindElement(By.XPath("(//input[@name='update'])[2]")).Click();
+            contactCache = null;
             return this;
         }
 
         // Метод заполнения данными формы создания контакта
         public ContactHelper FillNewContactForm(ContactData contact)
         {
-            driver.FindElement(By.Name("firstname")).Click();
-            driver.FindElement(By.Name("firstname")).Clear();
-            driver.FindElement(By.Name("firstname")).SendKeys(contact.FirstName);
-            driver.FindElement(By.Name("lastname")).Click();
-            driver.FindElement(By.Name("lastname")).Clear();
-            driver.FindElement(By.Name("lastname")).SendKeys(contact.LastName);
+            Type(By.Name("firstname"), contact.FirstName);
+            Type(By.Name("lastname"), contact.LastName);
             return this;
         }
     }

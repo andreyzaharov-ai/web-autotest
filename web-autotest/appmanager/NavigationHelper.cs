@@ -14,7 +14,7 @@ namespace web_autotest
             this.baseURL = baseURL;
         }
 
-        // метод перехода на домашнюю страницу
+        // метод перехода на главную
         public void OpenHomePage()
         {
             driver.Navigate().GoToUrl(baseURL + "/addressbook/");
@@ -23,6 +23,10 @@ namespace web_autotest
         // метод перехода на страницу групп
         public void GoToGroupsPage()
         {
+            if (driver.Url == baseURL + "/addressbook/group.php" && IsElementPresent(By.Name("new")))
+            { 
+                return; 
+            }
             driver.FindElement(By.LinkText("groups")).Click();
         }
 

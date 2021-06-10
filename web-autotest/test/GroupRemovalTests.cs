@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace web_autotest
 {
     [TestFixture]
-    public class GroupRemovalTests : TestBase
+    public class GroupRemovalTests : AuthTestBase
     {
         /// <summary>
         /// Тест Удаления группы
@@ -13,19 +13,21 @@ namespace web_autotest
         [Test]
         public void GroupRemovalTest()
         {
-            GroupData newData1 = new GroupData("Group1");
-            newData1.Header = "1Header";
-            newData1.Footer = "1Footer";
-            By locator = By.CssSelector("span.group");
-            if (!app.Groups.isElementPresent(locator))
+            GroupData newData1 = new GroupData("Group1")
+            {
+                Header = "1Header",
+                Footer = "1Footer"
+            };
+            app.Navigator.GoToGroupsPage();
+            if (!app.Groups.IsElementPresent(By.CssSelector("span.group")))
             {
                 app.Groups.Create(newData1);
             }
                 List<GroupData> oldGroups = app.Groups.GetGroupList();
 
                 app.Groups.Remove(0);
-
-                List<GroupData> newGroups = app.Groups.GetGroupList();
+            Assert.AreEqual(oldGroups.Count - 1, app.Groups.GetGroupCount());
+            List<GroupData> newGroups = app.Groups.GetGroupList();
 
                 oldGroups.RemoveAt(0);
                 Assert.AreEqual(oldGroups, newGroups);
