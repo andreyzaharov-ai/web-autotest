@@ -30,11 +30,7 @@ namespace web_autotest
             driver.FindElement(By.LinkText("groups")).Click();
         }
 
-        // метод перехода на страницу контактов
-        public void GoToContactEditPage()
-        {
-            driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
-        }
+
 
         
 

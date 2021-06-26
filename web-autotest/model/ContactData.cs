@@ -1,23 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Text.RegularExpressions;
 
 namespace web_autotest
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
-        private string firstname;
-        private string lastname;
+        private string allPhones;
+
+        public ContactData(string firstname, string lastname)
+        {
+            FirstName = firstname;
+            LastName = lastname;
+
+        }
 
         public ContactData()
         {
-        }
-
-        public ContactData(string username, string lastname)
-        {
-            this.firstname = username;
-            this.lastname = lastname;
-
         }
 
         public bool Equals(ContactData other)
@@ -57,29 +56,51 @@ namespace web_autotest
             return "FirstName=" + FirstName + "LastName" + LastName;
         }
 
-        public string FirstName
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
+        public string Address { get; set; }
+
+        public string HomePhone { get; set; }
+
+        public string MobilePhone { get; set; }
+
+        public string WorkPhone { get; set; }
+
+        
+
+        public string AllPhones 
         {
-            get
+            get 
             {
-                return firstname;
+                if (allPhones != null)
+                {
+                    return allPhones;
+                }
+                else
+                {
+                    return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone)).Trim();
+                }
             }
             set
             {
-                firstname = value;
+                allPhones = value;
             }
         }
-        public string LastName
+
+        /// <summary>
+        /// Метод очистки телефонов
+        /// </summary>
+        /// <param name="phone"></param>
+        /// <returns></returns>
+
+        private string CleanUp(string phone)
         {
-            get
+            if (phone == null || phone=="")
             {
-                return lastname;
+                return "";
             }
-            set
-            {
-                lastname = value;
-            }
+            return Regex.Replace(phone,"[ -()]","") + "\r\n";
         }
-
-
     }
 }

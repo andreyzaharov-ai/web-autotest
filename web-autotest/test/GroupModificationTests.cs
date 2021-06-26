@@ -30,6 +30,7 @@ namespace web_autotest
             newData1.Header = "2Header";
             newData1.Footer = "2Footer";
             List<GroupData> oldGroups = app.Groups.GetGroupList();
+            GroupData oldData = oldGroups[0];
             app.Groups.Modify(newData, 0);
             Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount());
             List<GroupData> newGroups = app.Groups.GetGroupList();
@@ -37,7 +38,13 @@ namespace web_autotest
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
-
+            foreach (GroupData group in newGroups)
+            {
+                if (group.Id == oldData.Id)
+                {
+                    Assert.AreEqual(newData.Name, group.Name);
+                }
+            }
 
 
 
