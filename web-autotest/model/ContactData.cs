@@ -7,6 +7,8 @@ namespace web_autotest
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private string allPhones;
+        private string contactDetailes;
+        private string allEmails;
 
         public ContactData(string firstname, string lastname)
         {
@@ -29,13 +31,13 @@ namespace web_autotest
             {
                 return true;
             }
-            return FirstName == other.FirstName && LastName == other.LastName;
+            return FirstName == other.FirstName & LastName == other.LastName;
             
         }
 
         public override int GetHashCode()
         {
-            return FirstName.GetHashCode();
+            return (FirstName + LastName).GetHashCode();
         }
 
         public int CompareTo(ContactData other)
@@ -44,11 +46,11 @@ namespace web_autotest
             {
                 return 1;
             }
-            if (FirstName == other.FirstName && LastName == other.LastName)
+            if (Equals(this.LastName, other.LastName))
             {
-                return 0;
+                return FirstName.CompareTo(other.FirstName);
             }
-            return -1;
+            return LastName.CompareTo(other.LastName);
 
         }
         public override string ToString()
@@ -67,8 +69,35 @@ namespace web_autotest
 
         public string WorkPhone { get; set; }
 
-        
+        public string Email { get; set; }
 
+        public string Email2 { get; set; }
+
+        public string Email3 { get; set; }
+
+        public string AllEmails
+        {
+            get
+            {
+                if (allEmails != null)
+                {
+                    return allEmails;
+                }
+                else
+                {
+                    return ((Email) + "\r\n" +(Email2) + "\r\n" + (Email3)).Trim();
+                }
+            }
+            set
+            {
+                allEmails = value;
+            }
+        }
+       
+
+        /// <summary>
+        /// Метод получения всех телефонов контакта
+        /// </summary>
         public string AllPhones 
         {
             get 
@@ -87,6 +116,35 @@ namespace web_autotest
                 allPhones = value;
             }
         }
+
+        public string ContactDetails
+        {
+            get
+            {
+                if (contactDetailes != null)
+                {
+                    return contactDetailes;
+                }
+                else
+                {
+                    return
+                        (FirstName + " " + LastName + "\r\n"
+                        + Address + "\r\n\r\n"
+                        + "H: " + HomePhone + "\r\n"
+                        + "M: " + MobilePhone + "\r\n"
+                        + "W: " + WorkPhone + "\r\n\r\n"
+                        + Email + "\r\n"
+                        + Email2 + "\r\n"
+                        + Email3 + "\r\n").Trim();
+                }
+            }
+            set
+            {
+                contactDetailes = value;
+            }
+        }
+
+        public string Id { get; internal set; }
 
         /// <summary>
         /// Метод очистки телефонов

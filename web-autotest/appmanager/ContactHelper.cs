@@ -32,13 +32,44 @@ namespace web_autotest
             string lastName = cells[1].Text;
             string firstName = cells[2].Text;
             string address = cells[3].Text;
+            string allEmails = cells[4].Text;
             string allPhones = cells[5].Text;
             return new ContactData(firstName, lastName)
             {
                 Address = address,
-                AllPhones = allPhones
-
+                AllPhones = allPhones,
+                AllEmails = allEmails
             };
+        }
+
+        /// <summary>
+        /// Метод получения данных о контакте со страницы детальной информации о контакте 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+
+        public ContactData GetContactInformationFromDetails(int index)
+        {
+            manager.Navigator.OpenHomePage();
+            OpenContactsDetail(index);
+            IList<IWebElement> cells = driver.FindElements(By.Id("content"));
+
+            string contactDetails = cells[0].Text;
+
+            return new ContactData()
+            {
+                ContactDetails = contactDetails
+            };
+        }
+        /// <summary>
+        /// Метод открытия страницы детальной информации о контакте
+        /// </summary>
+        /// <param name="index"></param>
+        private void OpenContactsDetail(int index)
+        {
+            driver.FindElements(By.Name("entry"))[index]
+                .FindElements(By.TagName("td"))[6]
+                .FindElement(By.TagName("a")).Click();
         }
 
         private List<ContactData> contactCache = null;
@@ -59,9 +90,14 @@ namespace web_autotest
             string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
             string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
             string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
+            string email = driver.FindElement(By.Name("email")).GetAttribute("value");
+            string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
+            string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
+
             return new ContactData(firstName, lastName)
             {
-                Address=address, HomePhone=homePhone, MobilePhone=mobilePhone, WorkPhone=workPhone
+                Address=address, HomePhone=homePhone, MobilePhone=mobilePhone, WorkPhone=workPhone, Email= email,
+                Email2 = email2, Email3 = email3
             };
         }
 
@@ -71,15 +107,15 @@ namespace web_autotest
             {
                 contactCache = new List<ContactData>();
                 manager.Navigator.OpenHomePage();
-                ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name='entry']"));
                 foreach (IWebElement element in elements)
                 {
-                    ContactData contact = new ContactData()
+                    string firstName = element.FindElement(By.CssSelector("td:nth-of-type(3n)")).Text;
+                    string lastName = element.FindElement(By.CssSelector("td:nth-of-type(2n)")).Text;                   
+                    contactCache.Add(new ContactData(firstName, lastName)
                     {
-                        FirstName = driver.FindElement(By.CssSelector("td:nth-of-type(3n)")).Text,
-                        LastName = driver.FindElement(By.CssSelector("td:nth-of-type(2n)")).Text
-                    };
-                    contactCache.Add(contact);
+                        Id = element.FindElement(By.TagName("input")).GetAttribute("value")
+                    });
 
                 }
             }
@@ -117,8 +153,7 @@ namespace web_autotest
         {
             driver.FindElements(By.Name("entry"))[index]
                 .FindElements(By.TagName("td"))[7]
-                .FindElement(By.TagName("a")).Click();
-            
+                .FindElement(By.TagName("a")).Click();  
         }
 
         /// <summary>
