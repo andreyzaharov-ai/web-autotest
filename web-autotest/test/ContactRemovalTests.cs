@@ -16,7 +16,11 @@ namespace web_autotest
         [Test]
         public void ContactRemovalTest()
         {
-            ContactData newData = new ContactData("Zarin", "Zarinovich");
+            ContactData newData = new ContactData()
+            {
+                FirstName = GenerateRandomString(10),
+                LastName = GenerateRandomString(10)
+            };
 
             By locator = By.XPath("//td/input");
             if (!app.Groups.IsElementPresent(locator))

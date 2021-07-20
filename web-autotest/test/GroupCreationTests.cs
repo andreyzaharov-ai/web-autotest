@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 
 
@@ -7,17 +8,21 @@ namespace web_autotest
     [TestFixture]
     public class GroupCreationTests : AuthTestBase
     {
+        
+
         /// <summary>
         /// Тест создания группы
         /// </summary> 
         [Test]
         public void TheGroupCreationTest()
         {
-            GroupData group = new GroupData("Group1")
+            GroupData group = new GroupData()
             {
-                Header = "1Header",
-                Footer = "1Footer"
+                Name = GenerateRandomString(5),
+                Header = GenerateRandomString(5),
+                Footer = GenerateRandomString(5)
             };
+
             List<GroupData> oldGroups = app.Groups.GetGroupList();
             app.Groups.Create(group);
             

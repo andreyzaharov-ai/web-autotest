@@ -12,6 +12,10 @@ namespace web_autotest
             Name = name;
         }
 
+        public GroupData()
+        {
+        }
+
         public bool Equals(GroupData other)
         {
             if (ReferenceEquals(other, null))
@@ -32,7 +36,7 @@ namespace web_autotest
 
         public override string ToString()
         {
-            return "name=" + Name;
+            return "name=" + Name + ", header = " + Header + ", footer= " + Footer;
         }
 
         public int CompareTo(GroupData other)

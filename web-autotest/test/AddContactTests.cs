@@ -13,7 +13,18 @@ namespace web_autotest
         [Test]
         public void TheAddContactTest()
         {
-            ContactData contact = new ContactData("Andrew", "The second");
+            ContactData contact = new ContactData()
+            {
+                FirstName = GenerateRandomString(10),
+                LastName = GenerateRandomString(10),
+                Address = GenerateRandomString(10),
+                HomePhone = GenerateRandomString(10),
+                MobilePhone = GenerateRandomString(10),
+                WorkPhone = GenerateRandomString(10),
+                Email = GenerateRandomString(10),
+                Email2 = GenerateRandomString(10),
+                Email3 = GenerateRandomString(10)
+            };
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 
             app.Contacts.Create(contact);

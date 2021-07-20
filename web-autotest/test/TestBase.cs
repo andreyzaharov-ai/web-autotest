@@ -16,6 +16,7 @@ namespace web_autotest
     {
         
         protected AppManager app;
+        public static Random rnd = new Random();
 
         /// <summary>
         /// Метод инициализации тестов
@@ -28,16 +29,22 @@ namespace web_autotest
 
 
         }
-        
-
-     
-
-
-
-
-
-
-
+        /// <summary>
+        /// Метод, генерирующий случайные символы в диапазоне латинского алфавита
+        /// </summary>
+        /// <param name="max">Кол-во сгенерированных символов</param> 
+        /// <returns>Возвращает строку</returns>
+        public static string GenerateRandomString(int max)
+        {
+            
+            
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < max; i++)
+            {
+                builder.Append(Convert.ToChar(65 + Convert.ToInt32(rnd.NextDouble() * 26)));
+            }
+            return builder.ToString();
+        }
 
     }
 }

@@ -13,10 +13,11 @@ namespace web_autotest
         [Test]
         public void GroupRemovalTest()
         {
-            GroupData newData1 = new GroupData("Group1")
+            GroupData newData1 = new GroupData()
             {
-                Header = "1Header",
-                Footer = "1Footer"
+                Name = GenerateRandomString(5),
+                Header = GenerateRandomString(5),
+                Footer = GenerateRandomString(5)
             };
             app.Navigator.GoToGroupsPage();
             if (!app.Groups.IsElementPresent(By.CssSelector("span.group")))

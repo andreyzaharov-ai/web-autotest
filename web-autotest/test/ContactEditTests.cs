@@ -16,7 +16,11 @@ namespace web_autotest
 
         public void ContactEditTest()
         {
-            ContactData newData = new ContactData("Zarin", "Zarinovich");
+            ContactData newData = new ContactData()
+            {
+                FirstName = GenerateRandomString(10),
+                LastName = GenerateRandomString(10)
+            };
 
             
             By locator = By.XPath("//td/input");

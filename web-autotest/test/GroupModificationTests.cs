@@ -14,10 +14,11 @@ namespace web_autotest
         public void GroupModificationTest()
         {
 
-            GroupData newData1 = new GroupData("Group1")
+            GroupData newData1 = new GroupData()
             {
-                Header = "1Header",
-                Footer = "1Footer"
+                Name = GenerateRandomString(5),
+                Header = GenerateRandomString(5),
+                Footer = GenerateRandomString(5)
             };
 
             app.Navigator.GoToGroupsPage();
