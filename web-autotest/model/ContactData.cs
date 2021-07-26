@@ -144,7 +144,7 @@ namespace web_autotest
             }
         }
 
-        public string Id { get; internal set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Метод очистки телефонов

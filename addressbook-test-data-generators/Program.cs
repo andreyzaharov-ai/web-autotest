@@ -102,22 +102,39 @@ namespace addressbook_test_data_generators
 
         }
 
+        /// <summary>
+        /// Метод записи данных групп в JSON 
+        /// </summary>
+        /// <param name="groups">группы</param>
+        /// <param name="writer">файл</param>
         private static void WriteGroupsToJsonFile(List<GroupData> groups, StreamWriter writer)
         {
             writer.Write(JsonConvert.SerializeObject(groups, Newtonsoft.Json.Formatting.Indented));
         }
-
+        /// <summary>
+        /// Метод записи данных контактов в JSON
+        /// </summary>
+        /// <param name="contacts">контакты</param>
+        /// <param name="writer">файл</param>
         private static void WriteContactsToJsonFile(List<ContactData> contacts, StreamWriter writer)
         {
             writer.Write(JsonConvert.SerializeObject(contacts, Newtonsoft.Json.Formatting.Indented));
         }
-
+        /// <summary>
+        /// Метод записи данных групп в Xml 
+        /// </summary>
+        /// <param name="groups">группы</param>
+        /// <param name="writer">файл</param>
         private static void WriteGroupsToXmlFile(List<GroupData> groups, StreamWriter writer)
         {
             new XmlSerializer(typeof(List<GroupData>)).Serialize(writer, groups);
 
         }
-
+        /// <summary>
+        /// Метод записи данных контактов в Xml
+        /// </summary>
+        /// <param name="contacts">контакты</param>
+        /// <param name="writer">файл</param>
         static void WriteContactsToXmlFile(List<ContactData> contacts, StreamWriter writer)
         {
             new XmlSerializer(typeof(List<ContactData>)).Serialize(writer, contacts);
