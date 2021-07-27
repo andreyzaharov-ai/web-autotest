@@ -39,7 +39,10 @@ namespace web_autotest
             return driver.FindElements(By.CssSelector("span.group")).Count;
         }
 
+
         private List<GroupData> groupCache = null;
+
+        
 
         /// <summary>
         /// Метод получения списка групп
@@ -96,6 +99,17 @@ namespace web_autotest
             return this;
         }
 
+        public GroupHelper Modify(GroupData group, GroupData newData)
+        {
+            manager.Navigator.GoToGroupsPage();
+            SelectGroup(group.Id);
+            InitGroupModification();
+            FillGroupForm(newData);
+            SubmitGroupModification();
+            ReturnToGroupsPage();
+            return this;
+        }
+
         /// <summary>
         /// Метод Удаления группы
         /// </summary>
@@ -109,9 +123,17 @@ namespace web_autotest
             ReturnToGroupsPage();
             return this;
         }
-       
 
-        
+        public GroupHelper Remove(GroupData group)
+        {
+            manager.Navigator.GoToGroupsPage();
+            SelectGroup(group.Id);
+            RemoveGroup();
+            ReturnToGroupsPage();
+            return this;
+        }
+
+
 
         public GroupHelper SubmitGroupCreation()
         {
@@ -159,6 +181,14 @@ namespace web_autotest
         public GroupHelper SelectGroup(int index)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
+            return this;
+        }
+
+        
+
+        public GroupHelper SelectGroup(string id)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='"+id+"'])")).Click();
             return this;
         }
 

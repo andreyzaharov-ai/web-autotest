@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace web_autotest
 {
     [TestFixture]
-    public class GroupRemovalTests : AuthTestBase
+    public class GroupRemovalTests : GroupTestBase
     {
         /// <summary>
         /// Тест Удаления группы
@@ -24,17 +24,17 @@ namespace web_autotest
             {
                 app.Groups.Create(newData1);
             }
-                List<GroupData> oldGroups = app.Groups.GetGroupList();
-
-                app.Groups.Remove(0);
+            List<GroupData> oldGroups = GroupData.GetAll();
+            GroupData tobeRemoved = oldGroups[0];
+            app.Groups.Remove(tobeRemoved);
             Assert.AreEqual(oldGroups.Count - 1, app.Groups.GetGroupCount());
-            List<GroupData> newGroups = app.Groups.GetGroupList();
-            GroupData toBeRemoved = oldGroups[0];
+            List<GroupData> newGroups = GroupData.GetAll();
+            
             oldGroups.RemoveAt(0);
                 Assert.AreEqual(oldGroups, newGroups);
             foreach (GroupData group in newGroups)
             {
-                Assert.AreNotEqual(group.Id, toBeRemoved.Id);
+                Assert.AreNotEqual(group.Id, tobeRemoved.Id);
             }
             
         }
