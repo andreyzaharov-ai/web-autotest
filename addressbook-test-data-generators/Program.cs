@@ -24,6 +24,7 @@ namespace addressbook_test_data_generators
             string format = args[2];
             //тип данных контакты или группы
             string type = args[3];
+            StreamWriter writer = new StreamWriter(filename);
 
             if (type == "groups")
             {
@@ -40,7 +41,7 @@ namespace addressbook_test_data_generators
                     });
                 }
                 //Пишем данные в файл. filename - название файла, в который передается значение
-                StreamWriter writer = new StreamWriter(filename);
+                
                 if (format == "xml")
                 {
                     WriteGroupsToXmlFile(groups, writer);
@@ -53,7 +54,7 @@ namespace addressbook_test_data_generators
                 {
                     Console.Out.Write("Unrecognized format" + format);
                 }
-                writer.Close();
+                
             }
 
 
@@ -66,19 +67,34 @@ namespace addressbook_test_data_generators
                     contacts.Add(new ContactData()
                     {
                         FirstName = TestBase.GenerateRandomString(10),
+                        MiddleName = TestBase.GenerateRandomString(10),
                         LastName = TestBase.GenerateRandomString(10),
+                        Nickname = TestBase.GenerateRandomString(10),
+                        Company = TestBase.GenerateRandomString(10),
+                        Title = TestBase.GenerateRandomString(10),
                         Address = TestBase.GenerateRandomString(10),
                         HomePhone = TestBase.GenerateRandomString(10),
                         MobilePhone = TestBase.GenerateRandomString(10),
                         WorkPhone = TestBase.GenerateRandomString(10),
-                        Email = TestBase.GenerateRandomString(10),
+                        Fax = TestBase.GenerateRandomString(10),
+                        Email1 = TestBase.GenerateRandomString(10),
                         Email2 = TestBase.GenerateRandomString(10),
-                        Email3 = TestBase.GenerateRandomString(10)
+                        Email3 = TestBase.GenerateRandomString(10),
+                        Homepage = TestBase.GenerateRandomString(10),
+                        Birthday = HelperBase.GenerateRandomDay(),
+                        MonthOfBirth = HelperBase.GenerateRandomMonth(),
+                        YearhOfBirth = HelperBase.GenerateRandomYear(),
+                        AnniversaryDay = HelperBase.GenerateRandomDay(),
+                        MonthOfAnniversary = HelperBase.GenerateRandomMonth(),
+                        YearOfAnniversary = HelperBase.GenerateRandomYear(),
+                        SecondaryAddress = TestBase.GenerateRandomString(10),
+                        SecondaryHomePhone = TestBase.GenerateRandomString(10),
+                        Notes = TestBase.GenerateRandomString(10)
                     });
                 }
 
                 //Пишем данные в файл. filename - название файла, в который передается значение
-                StreamWriter writer = new StreamWriter(filename);
+                
                 if (format == "xml")
                 {
                     WriteContactsToXmlFile(contacts, writer);
@@ -91,14 +107,14 @@ namespace addressbook_test_data_generators
                 {
                     Console.Out.Write("Unrecognized format" + format);
                 }
-                writer.Close();
+                
             }
         
 
             else Console.WriteLine("Unknown data type");
 
 
-
+            writer.Close();
 
         }
 
@@ -139,6 +155,8 @@ namespace addressbook_test_data_generators
         {
             new XmlSerializer(typeof(List<ContactData>)).Serialize(writer, contacts);
         }
+        
     }
+   
  }
 

@@ -9,12 +9,11 @@ namespace web_autotest
     [Table(Name = "group_list")]
     public class GroupData: IEquatable<GroupData>, IComparable<GroupData>
     {
-
         public GroupData(string name)
         {
             Name = name;
+            
         }
-
         public GroupData()
         {
         }
@@ -29,17 +28,17 @@ namespace web_autotest
             {
                 return true;
             }
-            return Name == other.Name;
+            return (Name == other.Name) && (Id == other.Id);
         }
 
         public override int GetHashCode()
         {
-            return Name.GetHashCode();
+            return (Name + Id).GetHashCode();
         }
 
         public override string ToString()
         {
-            return "name=" + Name + ", header = " + Header + ", footer= " + Footer;
+            return "ID=" + Id +"name=" + Name + ", header = " + Header + ", footer= " + Footer;
         }
 
         public int CompareTo(GroupData other)
@@ -48,7 +47,7 @@ namespace web_autotest
             {
                 return 1;
             }
-            return Name.CompareTo(other.Name);
+            return Id.CompareTo(other.Id);
         }
         [Column(Name = "group_name")]
         public string Name { get; set; }

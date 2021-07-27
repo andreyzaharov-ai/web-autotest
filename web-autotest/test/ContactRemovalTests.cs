@@ -1,31 +1,24 @@
-﻿using OpenQA.Selenium;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System.Collections.Generic;
-
-
 
 namespace web_autotest
 {
     [TestFixture]
     public class ContactRemovalTests : AuthTestBase
+
     {
+       
         /// <summary>
         /// Тест удаления контакта
         /// </summary>
 
-        [Test]
-        public void ContactRemovalTest()
+        [Test, TestCaseSource("ContactDataFromJsonFile")]
+        public void ContactRemovalTest(ContactData contact)
         {
-            ContactData newData = new ContactData()
-            {
-                FirstName = GenerateRandomString(10),
-                LastName = GenerateRandomString(10)
-            };
 
-            By locator = By.XPath("//td/input");
-            if (!app.Groups.IsElementPresent(locator))
+            if (app.Contacts.GetContactList().Count == 0)
             {
-                app.Contacts.Create(newData);
+                app.Contacts.Create(contact);
             }
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();

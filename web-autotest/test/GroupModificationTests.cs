@@ -22,7 +22,7 @@ namespace web_autotest
             };
 
             app.Navigator.GoToGroupsPage();
-            if (!app.Groups.IsElementPresent(By.CssSelector("span.group")))
+            if (GroupData.GetAll().Count == 0)
             {
                 app.Groups.Create(newData1);
             }

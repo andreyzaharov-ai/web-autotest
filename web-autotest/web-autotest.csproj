@@ -8,16 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="contacts.json" />
     <None Remove="contacts.xml" />
     <None Remove="groups.json" />
     <None Remove="groups.xml" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="contacts.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="contacts.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

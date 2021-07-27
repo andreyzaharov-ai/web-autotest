@@ -1,9 +1,11 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text.RegularExpressions;
+
 
 namespace web_autotest
 {
@@ -37,8 +39,9 @@ namespace web_autotest
             return new ContactData(firstName, lastName)
             {
                 Address = address,
-                AllPhones = allPhones,
-                AllEmails = allEmails
+                AllEmails = allEmails,
+                AllPhones = allPhones
+                
             };
         }
 
@@ -83,21 +86,33 @@ namespace web_autotest
         public ContactData GetContactInformationFromEditForm(int index)
         {
             manager.Navigator.OpenHomePage();
-            InitContactModification(0);
-            string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
-            string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
-            string address = driver.FindElement(By.Name("address")).GetAttribute("value");
-            string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
-            string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
-            string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
-            string email = driver.FindElement(By.Name("email")).GetAttribute("value");
-            string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
-            string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
-
-            return new ContactData(firstName, lastName)
+            InitContactModification(index);
+            return new ContactData()
             {
-                Address=address, HomePhone=homePhone, MobilePhone=mobilePhone, WorkPhone=workPhone, Email= email,
-                Email2 = email2, Email3 = email3
+                FirstName = driver.FindElement(By.Name("firstname")).GetAttribute("value"),
+                MiddleName = driver.FindElement(By.Name("middlename")).GetAttribute("value"),
+                LastName = driver.FindElement(By.Name("lastname")).GetAttribute("value"),
+                Nickname = driver.FindElement(By.Name("nickname")).GetAttribute("value"),
+                Company = driver.FindElement(By.Name("company")).GetAttribute("value"),
+                Title = driver.FindElement(By.Name("title")).GetAttribute("value"),
+                Address = driver.FindElement(By.Name("address")).GetAttribute("value"),
+                HomePhone = driver.FindElement(By.Name("home")).GetAttribute("value"),
+                MobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value"),
+                WorkPhone = driver.FindElement(By.Name("work")).GetAttribute("value"),
+                Fax = driver.FindElement(By.Name("fax")).GetAttribute("value"),
+                Email1 = driver.FindElement(By.Name("email")).GetAttribute("value"),
+                Email2 = driver.FindElement(By.Name("email2")).GetAttribute("value"),
+                Email3 = driver.FindElement(By.Name("email3")).GetAttribute("value"),
+                Homepage = driver.FindElement(By.Name("homepage")).GetAttribute("value"),
+                Birthday = driver.FindElement(By.Name("bday")).GetAttribute("value"),
+                MonthOfBirth = driver.FindElement(By.Name("bmonth")).GetAttribute("value"),
+                YearhOfBirth = driver.FindElement(By.Name("byear")).GetAttribute("value"),
+                AnniversaryDay = driver.FindElement(By.Name("aday")).GetAttribute("value"),
+                MonthOfAnniversary = driver.FindElement(By.Name("amonth")).GetAttribute("value"),
+                YearOfAnniversary = driver.FindElement(By.Name("ayear")).GetAttribute("value"),
+                SecondaryAddress = driver.FindElement(By.Name("address2")).GetAttribute("value"),
+                SecondaryHomePhone = driver.FindElement(By.Name("phone2")).GetAttribute("value"),
+                Notes = driver.FindElement(By.Name("notes")).GetAttribute("value")
             };
         }
 
@@ -134,12 +149,13 @@ namespace web_autotest
         /// <param name="newData"></param>
         /// <returns></returns>
 
-        public ContactHelper Modify(ContactData newData)
+        public ContactHelper Modify(ContactData newData, int index)
         {
             manager.Navigator.OpenHomePage();
             
-            InitContactModification(0);
+            InitContactModification(index);
             FillNewContactForm(newData);
+            SubmitContactUpdate();
             manager.Navigator.ReturnToContactsPage();
             return this;
         }
@@ -151,7 +167,7 @@ namespace web_autotest
 
         private void InitContactModification(int index)
         {
-            driver.FindElements(By.Name("entry"))[index]
+            driver.FindElements(By.Name("entry"))[index-1]
                 .FindElements(By.TagName("td"))[7]
                 .FindElement(By.TagName("a")).Click();  
         }
@@ -225,14 +241,35 @@ namespace web_autotest
         public ContactHelper FillNewContactForm(ContactData contact)
         {
             Type(By.Name("firstname"), contact.FirstName);
+            Type(By.Name("middlename"), contact.MiddleName);
             Type(By.Name("lastname"), contact.LastName);
+            Type(By.Name("nickname"), contact.Nickname);
+            Type(By.Name("title"), contact.Title);
+            Type(By.Name("company"), contact.Company);
             Type(By.Name("address"), contact.Address);
             Type(By.Name("home"), contact.HomePhone);
             Type(By.Name("mobile"), contact.MobilePhone);
             Type(By.Name("work"), contact.WorkPhone);
-            Type(By.Name("email"), contact.Email);
+            Type(By.Name("fax"), contact.Fax);
+            Type(By.Name("email"), contact.Email1);
             Type(By.Name("email2"), contact.Email2);
             Type(By.Name("email3"), contact.Email3);
+            Type(By.Name("homepage"), contact.Homepage);
+
+            driver.FindElement(By.Name("bday")).Click();
+            new SelectElement(driver.FindElement(By.Name("bday"))).SelectByText(GenerateRandomDay());
+            driver.FindElement(By.Name("bmonth")).Click();
+            new SelectElement(driver.FindElement(By.Name("bmonth"))).SelectByText(GenerateRandomMonth());
+            Type(By.Name("byear"), contact.YearhOfBirth);
+            driver.FindElement(By.Name("aday")).Click();
+            new SelectElement(driver.FindElement(By.Name("aday"))).SelectByText(GenerateRandomDay());
+            driver.FindElement(By.Name("amonth")).Click();
+            new SelectElement(driver.FindElement(By.Name("amonth"))).SelectByText(GenerateRandomMonth());
+            Type(By.Name("ayear"), contact.YearOfAnniversary);
+
+            Type(By.Name("address2"), contact.SecondaryAddress);
+            Type(By.Name("phone2"), contact.SecondaryHomePhone);
+            Type(By.Name("notes"), contact.Notes);
             return this;
         }
     }

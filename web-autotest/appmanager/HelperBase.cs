@@ -11,6 +11,7 @@ namespace web_autotest
     {
         protected AppManager manager;
         protected IWebDriver driver;
+        public static Random rnd = new Random();
         public HelperBase(AppManager manager)
         {
             this.manager = manager;
@@ -38,6 +39,37 @@ namespace web_autotest
                 driver.FindElement(locator).SendKeys(text);
             }
 
+        }
+        /// <summary>
+        /// Генерация дня
+        /// </summary>
+        /// <returns></returns>
+        public static string GenerateRandomDay()
+        {
+            int day = rnd.Next(1, 32);
+            return day.ToString();
+        }
+
+        /// <summary>
+        /// Генерация месяца
+        /// </summary>
+        /// <returns></returns>
+        public static string GenerateRandomMonth()
+        {
+            string[] RM = { "January", "February", "March", "April", "May", "June", "July",
+                            "August", "September", "October", "November", "December" };
+            int MM = rnd.Next(RM.Length);
+            return RM[MM];
+        }
+
+        /// <summary>
+        /// Генерация года
+        /// </summary>
+        /// <returns></returns>
+        public static string GenerateRandomYear()
+        {
+            int year = rnd.Next(1900, 2022);
+            return year.ToString();
         }
     }
 }
